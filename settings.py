@@ -1,24 +1,40 @@
 # Django settings for dashboard project.
+import os.path
 
+PRODUCTION = os.path.exists('/production')
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
+    # Keep running record of admins 
+    #('Andrew Allen', 'me@andrewallen.co'), # Origional author
 )
 
 MANAGERS = ADMINS
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '',                      # Or path to database file if using sqlite3.
-        'USER': '',                      # Not used with sqlite3.
-        'PASSWORD': '',                  # Not used with sqlite3.
-        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
+if PRODUCTION:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+            'NAME': 'dashboard',                  # Or path to database file if using sqlite3.
+            'USER': 'dashboard',                  # Not used with sqlite3.
+            'PASSWORD': '2KECCdw5HyARrbUS',       # Not used with sqlite3.
+            'HOST': '',                           # Set to empty string for localhost. Not used with sqlite3.
+            'PORT': '',                           # Set to empty string for default. Not used with sqlite3.
+        }
     }
-}
+
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+            'NAME': 'developmentDB',                # Or path to database file if using sqlite3.
+            'USER': '',                             # Not used with sqlite3.
+            'PASSWORD': '',                         # Not used with sqlite3.
+            'HOST': '',                             # Set to empty string for localhost. Not used with sqlite3.
+            'PORT': '',                             # Set to empty string for default. Not used with sqlite3.
+        }
+    }
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -27,7 +43,7 @@ DATABASES = {
 # timezone as the operating system.
 # If running in a Windows environment this must be set to the same as your
 # system time zone.
-TIME_ZONE = 'America/Chicago'
+TIME_ZONE = 'America/Denver'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
@@ -56,11 +72,16 @@ MEDIA_URL = ''
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
-STATIC_ROOT = ''
+STATIC_ROOT = '/var/www/dashboard/static'
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
-STATIC_URL = '/static/'
+if PRODUCTION:
+    STATIC_URL = 'http://localhost/static/'
+elif DEBUG:
+    STATIC_URL = '/static/'
+else:
+    STATIC_URL = 'http://example.com/your/static_files/isnt/set'
 
 # URL prefix for admin static files -- CSS, JavaScript and images.
 # Make sure to use a trailing slash.
@@ -116,9 +137,11 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # Uncomment the next line to enable the admin:
-    # 'django.contrib.admin',
+    'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
+    
+    'rotator',
 )
 
 # A sample logging configuration. The only tangible logging
