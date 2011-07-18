@@ -35,10 +35,10 @@ function setPage(urls, frame) {
 function start(data) {
     // Set #page0 so that when we enter the loop again it gets preloaded
     $('#page0')
-        .hide();
-    $('#page1')
         .attr('src', data[0][0])
         .show();
+    $('#page1')
+        .hide();
     setPage(data,0);
 }
 
