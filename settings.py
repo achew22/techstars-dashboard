@@ -149,6 +149,9 @@ INSTALLED_APPS = (
     # Django Debug Toolbar
     'debug_toolbar',
     
+    # South migrations,
+    'south',
+    
     'rotator',
     'countdown',
     'goog_calendar',
