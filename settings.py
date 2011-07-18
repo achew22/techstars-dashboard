@@ -152,9 +152,11 @@ INSTALLED_APPS = (
     # South migrations,
     'south',
     
+    # Apps
     'rotator',
     'countdown',
     'goog_calendar',
+    'pages',
 )
 
 # Add a tuple called DEBUG_TOOLBAR_PANELS to your settings.py file that 
