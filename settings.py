@@ -79,7 +79,7 @@ STATIC_ROOT = '/var/www/dashboard/static'
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
 if PRODUCTION:
-    STATIC_URL = 'http://localhost/static/'
+    STATIC_URL = 'http://10.0.0.250/static/'
 elif DEBUG:
     STATIC_URL = '/static/'
 else:
