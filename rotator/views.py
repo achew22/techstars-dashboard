@@ -1,7 +1,7 @@
 # https://bitbucket.org/twanschik/django-autoload/src/1698ab544030/autoload/middleware.py
 from django.core.urlresolvers import reverse
 from django.utils.importlib import import_module
-from django.shortcuts import render_to_response
+from django.shortcuts import render
 from django.http import HttpResponse
 
 from django.utils import simplejson as json
@@ -15,10 +15,10 @@ logging = logging.getLogger('techstars.rotator')
 import settings
 
 def index(request):
-    return render_to_response("index.html")
+    return render(request, "index.html")
 
 def empty(request):
-    return render_to_response("empty.html")
+    return render(request, "empty.html")
     
 def leafs(request):
     response_data = []

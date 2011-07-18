@@ -9,6 +9,6 @@ def get_leaves():
     calendars = Calendar.objects.all()
     
     for calendar in calendars:
-        to_return.append(calendar.get_absolute_url())
+        to_return.append([calendar.get_absolute_url(), calendar.timeout*1000])
 
     return to_return
