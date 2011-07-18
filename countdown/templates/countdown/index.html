@@ -1,0 +1,16 @@
+<html>
+    <head>
+        <title>Countdown clock</title>
+        <script src="{{ STATIC_URL }}countdown/js/countdown.js"></script>
+        <link href="{{ STATIC_URL }}countdown/css/style.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <div id="centered">
+            <script>
+                deadline("{{ STATIC_URL }}countdown/flash/countdown.swf", 
+                    "{{ event.date|date:'Y-m-d-H-i-s' }}", "700", "400");
+            </script>
+        </div>
+    </body>
+</html>
+

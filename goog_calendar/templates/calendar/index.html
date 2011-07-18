@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="{{ STATIC_URL }}calendar/css/style.css"></link>
+</head>
+<body>
+	<div id="title">{{ calendar.title }}</div>
+	<div id="event">{{ event.title }}</div>
+	<div id="time">{{ event.date }}</div>
+	<div id="desc">{{ event.summary|striptags|linebreaks }}</div>
+	
+</html>
+

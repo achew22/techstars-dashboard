@@ -10,8 +10,10 @@ urlpatterns = patterns('',
     url(r'^$', 'rotator.views.index'),
 
     url(r'^rotator/', include('rotator.urls')),
+    url(r'^calendar/', include('goog_calendar.urls')),
+    url(r'^countdown/', include('countdown.urls')),
 
-    # Uncomment the next line to enable the admin:
+    # Comment the next line to disable the admin:
     url(r'^admin/', include(admin.site.urls))
 )
 

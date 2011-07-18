@@ -1,0 +1,11 @@
+body {
+    text-align: center;
+    background-color: black;
+}
+
+.centered {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: auto;
+    margin-right: auto;
+}

@@ -1,31 +1,47 @@
+function setPage(urls, frame) {
+    // Siwtch out the preloaded page
+    var base_page = "#page";
+    $(base_page+frame)
+        .show();
+    $(base_page+(frame^1))
+        .hide()
+
+    var current = urls.shift();
+    var timeout = current[1];
+
+    if (urls.length) {
+        // Load the next url up
+        var next_url = urls[0][0];
+
+        // Preload the next frame
+        $(base_page+(frame^1))
+            .attr('src', next_url);
+    } else {
+        // If we are at the end of the loop, 
+        // reload the loop list after the timeout
+        setTimeout(function() {
+            $.getJSON('/rotator/leafs/', start);
+        }, timeout);
+        return; // Reload everything and start again
+    }
+
+
+    // Recurse recurse
+    setTimeout(function() {
+        setPage(urls, frame^1);
+    }, timeout);
+}
+
+function start(data) {
+    // Set #page0 so that when we enter the loop again it gets preloaded
+    $('#page0')
+        .hide();
+    $('#page1')
+        .attr('src', data[0][0])
+        .show();
+    setPage(data,0);
+}
+
 $(document).ready(function() {
-        urls = [
-                //['/countdown/', 30 * 1000],
-                ['http://visibletweets.com/#query=techstars&animation=2',   30 * 1000],
-                ['/calendar/?id=0', 8  * 1000],
-                ['/calendar/?id=1', 8  * 1000],
-             	['/calendar/?id=2', 8  * 1000],
-                ['/calendar/?id=3', 8  * 1000],
-        ];
-        function setPage(index,frame) {
-                var next = index+1;
-                if (next >= urls.length) {
-                        next = 0;
-                }
-                timeout = urls[index][1];
-
-                // Set the page
-                var page = "#page";
-                $(page+frame)
-                  .show();
-                $(page+(frame^1))
-                  .hide()
-                  .attr('src', urls[next][0]);
-
-                setTimeout(function() {
-                        setPage(next, frame^1);
-                }, timeout)
-        }
-        $('#page0').attr('src', urls[0][0]);
-	setPage(0,0);
+    $.getJSON('/rotator/leafs/', start);
 });
